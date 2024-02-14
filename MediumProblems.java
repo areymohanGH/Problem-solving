@@ -1,14 +1,33 @@
+import java.util.Arrays;
+
 public class MediumProblems {
+
     public int[] productExceptSelf(int[] nums) {
-        int totalProduct = 0;
+        int[] res = new int[nums.length];
+        int prefix = 1, postfix = 1;
         for (int i = 0; i < nums.length; i++) {
-            totalProduct *= nums[i];
+            res[i] = nums[i];
         }
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0)
-                continue;
-            nums[i] = totalProduct / nums[i];
+            res[i] = prefix;
+            prefix *= nums[i];
         }
-        return nums;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            res[i] *= postfix;
+            postfix *= nums[i];
+        }
+        return res;
+    }
+    
+    public int maxSubArray(int[] nums) {
+        int sum = 0;
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            if (sum < 0)
+                sum = 0;
+            sum += nums[i];
+            max = Math.max(max, sum);
+        }
+        return max;
     }
 }
