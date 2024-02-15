@@ -30,6 +30,26 @@ public class EasyProblems {
         return maxProfit;
     }
 
+    public int hammingWeight(int n) {
+        int result = 0;
+        for (int i = 0; i < 32; i++) {
+            if ((n & 1) == 1)
+                result++;
+            n = n >> 1;
+        }
+        return result;
+    }
+
+    public int missingNumber(int[] nums) {
+        int sum = 0;
+        int n = nums.length;
+        int tSum = n * (n + 1) / 2;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        return tSum - sum;
+    }
+
     public boolean containsDuplicate(int[] nums) {
         Set<Integer> set = new HashSet<>();
         for (int i = 0; i < nums.length; i++) {

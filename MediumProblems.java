@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class MediumProblems {
 
     public int[] productExceptSelf(int[] nums) {
@@ -18,7 +16,7 @@ public class MediumProblems {
         }
         return res;
     }
-    
+
     public int maxSubArray(int[] nums) {
         int sum = 0;
         int max = Integer.MIN_VALUE;
