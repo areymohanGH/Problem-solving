@@ -4,6 +4,24 @@ import java.util.Map;
 import java.util.Set;
 
 public class EasyProblems {
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
     public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> visitedNumbers = new HashMap<>();
 
@@ -58,5 +76,78 @@ public class EasyProblems {
             }
         }
         return false;
+    }
+
+    public int reverseBits(int n) {
+        int result = 0;
+        for (int i = 0; i < 32; i++) {
+            result = result << 1;
+            if ((n & 1) == 1)
+                result++;
+            n = n >> 1;
+        }
+        return result;
+    }
+
+    public int climbStairs(int n) {
+        int onestep = 1;
+        int twostep = 0;
+        int currstep = 1;
+        for (int i = 0; i < n; i++) {
+            currstep = onestep + twostep;
+            twostep = onestep;
+            onestep = currstep;
+        }
+        return currstep;
+    }
+
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode next = null;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode temp = new ListNode(0);
+        ListNode curr = temp;
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                curr.next = list1;
+                list1 = list1.next;
+            } else {
+                curr.next = list2;
+                list2 = list2.next;
+            }
+            curr = curr.next;
+        }
+        if (list1 != null) {
+            curr.next = list1;
+        }
+        if (list2 != null) {
+            curr.next = list2;
+        }
+        return temp.next;
     }
 }
