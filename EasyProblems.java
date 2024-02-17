@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 public class EasyProblems {
 
@@ -149,5 +150,53 @@ public class EasyProblems {
             curr.next = list2;
         }
         return temp.next;
+    }
+
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length())
+            return false;
+        int[] count = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            count[s.charAt(i) - 'a']++;
+            count[t.charAt(i) - 'a']--;
+        }
+
+        for (int a : count) {
+            if (a != 0)
+                return false;
+        }
+        return true;
+    }
+
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(' || c == '{' || c == '[') {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty())
+                    return false;
+                if (c == ')' && stack.peek() == '(') {
+                    stack.pop();
+                } else if (c == ']' && stack.peek() == '[') {
+                    stack.pop();
+                } else if (c == '}' && stack.peek() == '{') {
+                    stack.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    public boolean isPalindrome(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isAlphabetic(s.charAt(i)))
+                sb.append(Character.toLowerCase(s.charAt(i)));
+        }
+        return sb.toString().equals(sb.reverse().toString());
     }
 }
